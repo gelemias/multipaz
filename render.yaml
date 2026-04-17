@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: multipaz-server-bundle
+    runtime: docker
+    plan: starter
+    dockerfilePath: ./multipaz-server-deployment/docker/Dockerfile
+    dockerContext: .
+    autoDeploy: true
+    healthCheckPath: /health
+    disk:
+      name: multipaz-data
+      mountPath: /app/data
+      sizeGB: 5
+    envVars:
+      - key: PORT
+        value: "8000"
+      - key: BASE_URL
+        sync: false
+      - key: ADMIN_PASS
+        generateValue: true
